@@ -1,8 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Writers;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace ServiceGovernance.Repository.Models.Tests.Builder
 {
@@ -56,7 +53,7 @@ namespace ServiceGovernance.Repository.Models.Tests.Builder
         /// <returns></returns>
         public string BuildAsString()
         {
-           return Build().ToJson();          
+            return Build().ToJson();
         }
 
         /// <summary>
