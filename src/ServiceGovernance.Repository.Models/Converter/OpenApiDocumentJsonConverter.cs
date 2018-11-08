@@ -1,12 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace ServiceGovernance.Repository.Models.Converter
 {
@@ -28,13 +23,7 @@ namespace ServiceGovernance.Repository.Models.Converter
             {
                 JObject item = JObject.Load(reader);
 
-                var openApiReader = new OpenApiStringReader();
-                var document = openApiReader.Read(item.ToString(), out var diagnostic);
-
-                if (diagnostic.Errors.Count > 0)
-                    throw new JsonReaderException("Error reading OpenApi document. " + string.Join(Environment.NewLine, diagnostic.Errors.Select(e => e.Message)));
-
-                return document;
+                return OpenApiDocumentHelper.ReadFromJson(item.ToString());
             }
 
             return null;
@@ -48,16 +37,7 @@ namespace ServiceGovernance.Repository.Models.Converter
             if (!(value is OpenApiDocument document))
                 throw new NotSupportedException($"OpenApiDocumentJsonConverter does not support converting the type '{value.GetType()}'!");
 
-            var sb = new StringBuilder();
-            using (var w = new StringWriter(sb))
-            {
-                var apiWriter = new OpenApiJsonWriter(w);
-                document.SerializeAsV3(apiWriter);
-                apiWriter.Flush();
-                w.Flush();
-            }
-
-            writer.WriteRawValue(sb.ToString());
+            writer.WriteRawValue(document.ToJson());
         }
     }
 }

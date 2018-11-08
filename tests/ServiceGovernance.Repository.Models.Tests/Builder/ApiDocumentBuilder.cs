@@ -1,6 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Writers;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -57,18 +56,7 @@ namespace ServiceGovernance.Repository.Models.Tests.Builder
         /// <returns></returns>
         public string BuildAsString()
         {
-            var document = Build();
-
-            var sb = new StringBuilder();
-            using (var writer = new StringWriter(sb))
-            {
-                var apiWriter = new OpenApiJsonWriter(writer);
-                document.SerializeAsV3(apiWriter);
-                apiWriter.Flush();
-                writer.Flush();
-            }
-
-            return sb.ToString();
+           return Build().ToJson();          
         }
 
         /// <summary>
