@@ -45,9 +45,7 @@ namespace ServiceGovernance.Repository.Models.Converter
             if (value == null)
                 return;
 
-            var document = value as OpenApiDocument;
-
-            if (document == null)
+            if (!(value is OpenApiDocument document))
                 throw new NotSupportedException($"OpenApiDocumentJsonConverter does not support converting the type '{value.GetType()}'!");
 
             var sb = new StringBuilder();

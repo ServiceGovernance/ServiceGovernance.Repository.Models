@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using ServiceGovernance.Repository.Models.Converter;
-using System;
+using System.Collections.Generic;
 
 namespace ServiceGovernance.Repository.Models
 {
@@ -28,6 +28,16 @@ namespace ServiceGovernance.Repository.Models
         public static ServiceApiDescription ReadFromJson(string json)
         {
             return JsonConvert.DeserializeObject<ServiceApiDescription>(json, new OpenApiDocumentJsonConverter());
+        }
+
+        /// <summary>
+        /// Reads a list of api descriptions from json
+        /// </summary>
+        /// <param name="json">the json string</param>
+        /// <returns></returns>
+        public static List<ServiceApiDescription> ReadListFromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<List<ServiceApiDescription>>(json, new OpenApiDocumentJsonConverter());
         }
     }
 }
