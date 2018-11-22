@@ -2,12 +2,14 @@
 using Newtonsoft.Json;
 using ServiceGovernance.Repository.Models.Converter;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ServiceGovernance.Repository.Models
 {
     /// <summary>
     /// Models an Api description for a service
     /// </summary>
+    [DebuggerDisplay("{ServiceId}")]
     public class ServiceApiDescription
     {
         /// <summary>
